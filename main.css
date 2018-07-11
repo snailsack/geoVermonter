@@ -1,0 +1,13 @@
+.container{
+    
+    display: flex;
+    position: relative;
+}
+#left-box{
+    border: solid 3px grey;
+}
+
+#map{
+    height: 400px;
+    width: 400px;
+}

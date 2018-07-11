@@ -6,9 +6,16 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>GeoVermonter</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
+    crossorigin="" />
   <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
-  <script src="main.js"></script>
+  <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw=="
+    crossorigin=""></script>
+  <script src="border.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+  </script>
 
 
 </head>
@@ -16,9 +23,57 @@
 <body>
   <nav class="navbar navbar-light bg-light">
     <a class="navbar-brand" href="#">
-      <img src="#" width="30" height="30" class="d-inline-block align-top" alt=""> Bootstrap
+      <img src="#" width="30" height="30" class="d-inline-block align-top" alt=""> GeoVermonter
     </a>
   </nav>
+  <div class="container-fluid">
+
+    <div class="row">
+      <div class="col-sm-6" id="left-box">
+        <h4>GeoVermonter: a fun? game.</h4>
+        <p>Rules: Welcome! When you click "Start", the map will zoom to a location somewhere in Vermont. You will be able to click the navigate buttons in the map up to 10 times. After that, you can guess which county you are in, or give up.</p>
+
+
+
+
+      </div>
+
+
+      <div class="col-sm-6" id="right-box">
+        <div id="map">
+        </div>
+      </div>
+
+    </div>
+
+
+
+    <div>
+      <button type="button" class="btn btn-primary" id="start" onclick="start()">Start</button>
+      <button type="button" class="btn btn-danger" id="giveUp" disabled>I Give Up!</button>
+      <span class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle scrollable-menu" type="button" id="guessCounty" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false" disabled>
+          Guess a County
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="#">Addison</a>
+          <a class="dropdown-item" href="#">Bennington</a>
+          <a class="dropdown-item" href="#">Caledonia</a>
+          <a class="dropdown-item" href="#">Chittenden</a>
+          <a class="dropdown-item" href="#">Essex</a>
+          <a class="dropdown-item" href="#">Franklin</a>
+          <a class="dropdown-item" href="#">Grand Isle</a>
+          <a class="dropdown-item" href="#">Lamoille</a>
+          <a class="dropdown-item" href="#">Orange</a>
+          <a class="dropdown-item" href="#">Orleans</a>
+          <a class="dropdown-item" href="#">Rutland</a>
+          <a class="dropdown-item" href="#">Washington</a>
+          <a class="dropdown-item" href="#">Windham</a>
+          <a class="dropdown-item" href="#">Windsor</a>
+        </div>
+      </span>
+    </div>
 
 
 
@@ -29,14 +84,17 @@
 
 
 
-  
 
 
 
 
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+      crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+      crossorigin="anonymous"></script>
+    <script src="main.js"></script>
 </body>
 
 </html>
