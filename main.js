@@ -19,7 +19,7 @@ let  maxLat = 45.0065;
 let  minLat = 42.739;
 
 
-function start() {
+// function start() {
 
 
   var randomLat 
@@ -33,9 +33,17 @@ function start() {
   }
   getRandomLon();
 
-  document.getElementById('map').setView([randomLat, randomLon], 18);
-  
+  var randomLocation = [randomLat, randomLon];
+  var pipLocation = [randomLon, randomLat];
+  function panTo() {
+    if (leafletPip.pointInLayer(pipLocation, vermontBorder)){ 
+    myMap.setView(randomLocation, 14);
+  } else (panTo());
 }
+
+//   document.getElementById('map')=L.map('map').setView([randomLat, randomLon], 18);
+  
+// }
 
 // function that checks to see if ranom lat lon is within vt boundary Box if not run again
 

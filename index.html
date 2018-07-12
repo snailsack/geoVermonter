@@ -16,7 +16,7 @@
   <script src="border.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
   </script>
-
+  <script src="https://unpkg.com/@mapbox/leaflet-pip@latest/leaflet-pip.js"></script>
 
 </head>
 
@@ -49,7 +49,7 @@
 
 
     <div>
-      <button type="button" class="btn btn-primary" id="start" onclick="start()">Start</button>
+      <button type="button" class="btn btn-primary" id="start" onClick="panTo();">Start</button>
       <button type="button" class="btn btn-danger" id="giveUp" disabled>I Give Up!</button>
       <span class="dropdown">
         <button class="btn btn-secondary dropdown-toggle scrollable-menu" type="button" id="guessCounty" data-toggle="dropdown" aria-haspopup="true"
