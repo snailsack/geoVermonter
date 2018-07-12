@@ -13,46 +13,89 @@ var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest
 let vermontBorder = L.geoJSON(border_data);
 vermontBorder.addTo(myMap);
 
-let  maxLon = -73.3654;
-let  minLon = -71.5489;
-let  maxLat = 45.0065;
-let  minLat = 42.739;
+console.log({county_border_data});
+let vermontCounties = L.geoJSON(county_border_data);
+// vermontCounties.addTo(myMap);
+
+let maxLon = -73.3654;
+let minLon = -71.5489;
+let maxLat = 45.0065;
+let minLat = 42.739;
 
 
 // function start() {
 
 
-  var randomLat 
-  function getRandomLat(){
-    randomLat = Math.random() *(maxLat-minLat) + minLat;
-  }
-  getRandomLat();
-  var randomLon 
-  function getRandomLon(){
-    randomLon = Math.random() *(maxLon-minLon) + minLon;
-  }
-  getRandomLon();
+let randomLat;
+let randomLon;
 
-  var randomLocation = [randomLat, randomLon];
-  var pipLocation = [randomLon, randomLat];
-  function panTo() {
-    if (leafletPip.pointInLayer(pipLocation, vermontBorder)){ 
-    myMap.setView(randomLocation, 14);
-  } else (panTo());
+
+function getRandomLat() {
+  randomLat = Math.random() * (maxLat - minLat) + minLat;
 }
 
-//   document.getElementById('map')=L.map('map').setView([randomLat, randomLon], 18);
-  
+function getRandomLon() {
+  randomLon = Math.random() * (maxLon - minLon) + minLon;
+}
+
+
+
+// function getRandomCoordinates() {
+//   getRandomLat();
+//   getRandomLon();
 // }
 
-// function that checks to see if ranom lat lon is within vt boundary Box if not run again
+// getRandomCoordinates();
+
+
+// let randomLocation = [randomLat, randomLon];
+// let pipLocation = [randomLon, randomLat];
+
+// write function that checks if coordinates are in vermont
+// function checkPoint() {
+//   console.log(randomLocation);
+//   console.log(leafletPip.pointInLayer(pipLocation, vermontBorder));
+// }
+
+
+function start() {
+  let randomLocation = [randomLat, randomLon];
+  let pipLocation = [randomLon, randomLat];
+
+  getRandomLat();
+  getRandomLon();
+  if (leafletPip.pointInLayer(pipLocation, vermontBorder).length === 1) {
+    myMap.setView(randomLocation, 14);
+  } else {
+    getRandomLat();
+    getRandomLon();
+    pipLocation = [randomLon, randomLat];
+    randomLocation = [randomLat, randomLon];
+    start();
+  }
+}
+
+myMap.dragging.disable();
+myMap.doubleClickZoom.disable();
+
+
+
+function giveUp() {
+  document.getElementById('giveUpText').innerHTML = "Your coordinates were: " + randomLat + ", " + randomLon;
+  myMap.setView([43.78886, -72.7317], 7);
+}
 
 // JQUERY STUFF
 $(document).ready(function () {
-  $('#start').click(function() {
+  $('#start').click(function () {
     $(this).prop('disabled', true);
     $('#giveUp').prop('disabled', false);
     $('#guessCounty').prop('disabled', false);
+  })
+  $('#giveUp').click(function () {
+    $(this).prop('disabled', true);
+    $('#guessCounty').prop('disabled', true);
+    $('#start').prop('disabled', false);
   })
 
 
