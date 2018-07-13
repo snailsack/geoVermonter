@@ -13,75 +13,69 @@ var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest
 let vermontBorder = L.geoJSON(border_data);
 vermontBorder.addTo(myMap);
 
-console.log({county_border_data});
 let vermontCounties = L.geoJSON(county_border_data);
-// vermontCounties.addTo(myMap);
 
 let maxLon = -73.3654;
 let minLon = -71.5489;
 let maxLat = 45.0065;
 let minLat = 42.739;
 
-
-// function start() {
-
-
-let randomLat;
-let randomLon;
-
-
 function getRandomLat() {
-  randomLat = Math.random() * (maxLat - minLat) + minLat;
+  return Math.random() * (maxLat - minLat) + minLat;
 }
 
 function getRandomLon() {
-  randomLon = Math.random() * (maxLon - minLon) + minLon;
+  return Math.random() * (maxLon - minLon) + minLon;
 }
 
-
-
-// function getRandomCoordinates() {
-//   getRandomLat();
-//   getRandomLon();
-// }
-
-// getRandomCoordinates();
-
-
-// let randomLocation = [randomLat, randomLon];
-// let pipLocation = [randomLon, randomLat];
-
-// write function that checks if coordinates are in vermont
-// function checkPoint() {
-//   console.log(randomLocation);
-//   console.log(leafletPip.pointInLayer(pipLocation, vermontBorder));
-// }
-
-
-function start() {
-  let randomLocation = [randomLat, randomLon];
-  let pipLocation = [randomLon, randomLat];
-
-  getRandomLat();
-  getRandomLon();
-  if (leafletPip.pointInLayer(pipLocation, vermontBorder).length === 1) {
-    myMap.setView(randomLocation, 14);
-  } else {
-    getRandomLat();
-    getRandomLon();
-    pipLocation = [randomLon, randomLat];
-    randomLocation = [randomLat, randomLon];
-    start();
+function getRandomPoint () {
+  return {
+    lat: getRandomLat(),
+    lon: getRandomLon()
   }
 }
 
+let marker;
+
+let count = 4;
+let loops = 0;
+let point;
+
+function start() {
+  count = 4;
+  point = getRandomPoint();
+
+  console.log({loops})
+  console.log({point})  
+  loops += 1;
+
+  while (leafletPip.pointInLayer([point.lon, point.lat], vermontBorder).length === 0) {
+    point = getRandomPoint
+  }
+  myMap.setView([point.lat, point.lon], 14);
+  
+  document.getElementById("score4u").innerHTML = "Your score is 4. Every time you zoom out, it drops by one.";
+  marker = L.marker([point.lat, point.lon]).addTo(myMap);
+}
+
+function guess() {
+  console.log(point);
+
+  let layerPointWithin = leafletPip.pointInLayer([point.lon, point.lat], vermontCounties)
+  console.log({layerPointWithin});
+
+}
+
+
+
 myMap.dragging.disable();
 myMap.doubleClickZoom.disable();
+myMap.scrollWheelZoom.disable();
 
 
 
 function giveUp() {
-  document.getElementById('giveUpText').innerHTML = "Your coordinates were: " + randomLat + ", " + randomLon;
+  document.getElementById('giveUpText').innerHTML = "Your coordinates were: " + point.lat + ", " + point.lon;
   myMap.setView([43.78886, -72.7317], 7);
 }
 
@@ -91,11 +85,20 @@ $(document).ready(function () {
     $(this).prop('disabled', true);
     $('#giveUp').prop('disabled', false);
     $('#guessCounty').prop('disabled', false);
+    $('.leaflet-control-zoom-out').show();
   })
   $('#giveUp').click(function () {
     $(this).prop('disabled', true);
     $('#guessCounty').prop('disabled', true);
     $('#start').prop('disabled', false);
+  })
+
+  $('.leaflet-control-zoom-out').click(function() {
+    count--;
+    $('#score4u').html("Your score is: " + count);
+    if (count === 1) {
+      $('.leaflet-control-zoom-out').hide();
+    }
   })
 
 

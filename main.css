@@ -15,3 +15,7 @@
 .leaflet-control-zoom-in{
     visibility: hidden;
 }
+#county-map{
+    height: 400px;
+
+}

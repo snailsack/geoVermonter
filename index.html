@@ -30,7 +30,7 @@
   <div class="container-fluid">
 
     <div class="row">
-      <div class="col-sm-6" id="left-box">
+      <div class="col-sm-4" id="left-box">
         <h4>GeoVermonter: a fun? game.</h4>
         <p>Rules: Welcome! When you click "Start", the map will zoom to a location somewhere in Vermont. You will be able to
           click the navigate buttons in the map up to 10 times. After that, you can guess which county you are in, or give
@@ -38,17 +38,22 @@
         <p id="giveUpText">
           <span id="coordinates"></span>
         </p>
-
+        <p id="score4u"></p>
 
 
 
       </div>
 
 
-      <div class="col-sm-6" id="right-box">
+      <div class="col-sm-5" id="right-box">
         <div id="map">
         </div>
       </div>
+
+      <div class="col-sm-3" id="rightmost-box">
+      <img src="https://geology.com/county-map/vermont-county-map.gif" alt="Counties of Vermont" id="county-map">
+
+      
 
     </div>
 
@@ -63,20 +68,20 @@
           Guess a County
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" href="#">Addison</a>
-          <a class="dropdown-item" href="#">Bennington</a>
-          <a class="dropdown-item" href="#">Caledonia</a>
-          <a class="dropdown-item" href="#">Chittenden</a>
-          <a class="dropdown-item" href="#">Essex</a>
-          <a class="dropdown-item" href="#">Franklin</a>
-          <a class="dropdown-item" href="#">Grand Isle</a>
-          <a class="dropdown-item" href="#">Lamoille</a>
-          <a class="dropdown-item" href="#">Orange</a>
-          <a class="dropdown-item" href="#">Orleans</a>
-          <a class="dropdown-item" href="#">Rutland</a>
-          <a class="dropdown-item" href="#">Washington</a>
-          <a class="dropdown-item" href="#">Windham</a>
-          <a class="dropdown-item" href="#">Windsor</a>
+          <a class="dropdown-item" onclick="guess()" id="ADDISON" >Addison</a>
+          <a class="dropdown-item" onclick="guess()" id="BENNINGTON" >Bennington</a>
+          <a class="dropdown-item" onclick="guess()" id="CALEDONIA" >Caledonia</a>
+          <a class="dropdown-item" onclick="guess()" id="CHITTENDEN" >Chittenden</a>
+          <a class="dropdown-item" onclick="guess()" id="ESSEX" >Essex</a>
+          <a class="dropdown-item" onclick="guess()" id="FRANKLIN" >Franklin</a>
+          <a class="dropdown-item" onclick="guess()" id="GRAND ISLE" >Grand Isle</a>
+          <a class="dropdown-item" onclick="guess()" id="LAMOILLE" >Lamoille</a>
+          <a class="dropdown-item" onclick="guess()" id="ORANGE" >Orange</a>
+          <a class="dropdown-item" onclick="guess()" id="ORLEANS" >Orleans</a>
+          <a class="dropdown-item" onclick="guess()" id="RUTLAND" >Rutland</a>
+          <a class="dropdown-item" onclick="guess()" id="WASHINGTON" >Washington</a>
+          <a class="dropdown-item" onclick="guess()" id="WINDAM" >Windham</a>
+          <a class="dropdown-item" onclick="guess()" id="WINDSOR" >Windsor</a>
         </div>
       </span>
     </div>
