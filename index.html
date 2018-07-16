@@ -35,30 +35,30 @@
         <p>Rules: Welcome! When you click "Start", the map will zoom to a location somewhere in Vermont. You will be able to
           click the navigate buttons in the map up to 10 times. After that, you can guess which county you are in, or give
           up.</p>
-        <p id="giveUpText">
-          <span id="coordinates"></span>
-        </p>
+          <p id="giveUpText">
+            <span id="coordinates"></span>
+          </p>
+          <div style= "display: none" id="nameEntry">
+            <p>Enter your initials.</p>
+            <input type="text" maxlength="3" id="input">
+            <button id="initials" onclick="submitInitials(), populateList()">Submit</button>
+
+          </div>
+        <div id='scoreCard'>
+          <ol id='scoreCardList'>
+            
+          </ol>
+
+        </div>
         <p id="score4u"></p>
-
-
-
       </div>
-
-
       <div class="col-sm-5" id="right-box">
         <div id="map">
         </div>
       </div>
-
       <div class="col-sm-3" id="rightmost-box">
       <img src="https://geology.com/county-map/vermont-county-map.gif" alt="Counties of Vermont" id="county-map">
-
-      
-
     </div>
-
-
-
     <div>
       <button type="button" class="btn btn-primary" id="start" onClick="start();">Start</button>
       <button type="button" class="btn btn-danger" id="giveUp" onClick="giveUp();" disabled>I Give Up!</button>
@@ -85,20 +85,6 @@
         </div>
       </span>
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
       crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"

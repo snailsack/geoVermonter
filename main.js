@@ -28,7 +28,7 @@ function getRandomLon() {
   return Math.random() * (maxLon - minLon) + minLon;
 }
 
-function getRandomPoint () {
+function getRandomPoint() {
   return {
     lat: getRandomLat(),
     lon: getRandomLon()
@@ -45,65 +45,104 @@ function start() {
   count = 4;
   point = getRandomPoint();
 
-  console.log({loops})
-  console.log({point})  
+  console.log({ loops })
+  console.log({ point })
   loops += 1;
 
   while (leafletPip.pointInLayer([point.lon, point.lat], vermontBorder).length === 0) {
     point = getRandomPoint
   }
   myMap.setView([point.lat, point.lon], 14);
-  
+
   document.getElementById("score4u").innerHTML = "Your score is 4. Every time you zoom out, it drops by one.";
   marker = L.marker([point.lat, point.lon]).addTo(myMap);
 }
 
 function guess() {
   console.log(point);
+  document.getElementById("nameEntry").style = "display: block";
 
   let layerPointWithin = leafletPip.pointInLayer([point.lon, point.lat], vermontCounties)
-  console.log({layerPointWithin});
+  console.log({ layerPointWithin });
+  console.log(count)
+}
+let name;
+let playerInfo;
+let array = [];
+let addScore;
+let index;
+function populateList() {
+  addScore = document.getElementById("scoreCardList");
+  for (index = 0; index < array.length; index++) {
+    if (array[index].score === 4) {
+      addName();
+      console.log(array[index].name);
+      console.log(array[index].score);
+    }
+  }
+}
+
+function submitInitials() {
+  name = document.getElementById('input').value;
+  playerInfo = { 'name': name, 'score': count };
+  JSON.stringify(array.push(playerInfo));
+  document.getElementById('nameEntry').style = 'display: none';
+  myMap.setView([43.78886, -72.7317], 7);
 
 }
+
+function addName() {
+  let list = document.getElementById('scoreCardList')
+  let listItem = document.createElement('li');
+  listItem.textContent = array[index].name + ":" + array[index].score;
+  list.appendChild(listItem);
+  
+    $('#start').prop('disabled', true);
+    $('#giveUp').prop('disabled', false);
+    $('#guessCounty').prop('disabled', false);
+    $('.leaflet-control-zoom-out').show();
+
+  }
+
 
 
 
 myMap.dragging.disable();
-myMap.doubleClickZoom.disable();
-myMap.scrollWheelZoom.disable();
+  myMap.doubleClickZoom.disable();
+  myMap.scrollWheelZoom.disable();
 
 
 
-function giveUp() {
-  document.getElementById('giveUpText').innerHTML = "Your coordinates were: " + point.lat + ", " + point.lon;
-  myMap.setView([43.78886, -72.7317], 7);
-}
+  function giveUp() {
+    document.getElementById('giveUpText').innerHTML = "Your coordinates were: " + point.lat + ", " + point.lon;
+    myMap.setView([43.78886, -72.7317], 7);
+  }
 
-// JQUERY STUFF
-$(document).ready(function () {
-  $('#start').click(function () {
-    $(this).prop('disabled', true);
-    $('#giveUp').prop('disabled', false);
-    $('#guessCounty').prop('disabled', false);
-    $('.leaflet-control-zoom-out').show();
-  })
-  $('#giveUp').click(function () {
-    $(this).prop('disabled', true);
-    $('#guessCounty').prop('disabled', true);
-    $('#start').prop('disabled', false);
-  })
+  // JQUERY STUFF
+  $(document).ready(function () {
+    $('#start').click(function () {
+      $(this).prop('disabled', true);
+      $('#giveUp').prop('disabled', false);
+      $('#guessCounty').prop('disabled', false);
+      $('.leaflet-control-zoom-out').show();
+    })
+    $('#giveUp').click(function () {
+      $(this).prop('disabled', true);
+      $('#guessCounty').prop('disabled', true);
+      $('#start').prop('disabled', false);
+    })
 
-  $('.leaflet-control-zoom-out').click(function() {
-    count--;
-    $('#score4u').html("Your score is: " + count);
-    if (count === 1) {
-      $('.leaflet-control-zoom-out').hide();
-    }
-  })
-
-
+    $('.leaflet-control-zoom-out').click(function () {
+      count--;
+      $('#score4u').html("Your score is: " + count);
+      if (count === 1) {
+        $('.leaflet-control-zoom-out').hide();
+      }
+    })
 
 
 
 
-});
+
+
+  });
