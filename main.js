@@ -69,80 +69,100 @@ function guess() {
 let name;
 let playerInfo;
 let array = [];
-let addScore;
+let newScore;
 let index;
 function populateList() {
-  addScore = document.getElementById("scoreCardList");
+  
+  newScore = document.getElementById("scoreCardList");
   for (index = 0; index < array.length; index++) {
     if (array[index].score === 4) {
       addName();
-      console.log(array[index].name);
-      console.log(array[index].score);
+      console.log(localStorage.highScores.name);
+      console.log(localStorage.highScores.count);
+    }
+  }
+  for (index = 0; index < array.length; index++) {
+    if (array[index].score === 3) {
+      addName();
+    }
+  }
+  for (index = 0; index < array.length; index++) {
+    if (array[index].score === 2) {
+      addName();
+    }
+  }
+  for (index = 0; index < array.length; index++) {
+    if (array[index].score === 1) {
+      addName();
     }
   }
 }
-
 function submitInitials() {
   name = document.getElementById('input').value;
   playerInfo = { 'name': name, 'score': count };
-  JSON.stringify(array.push(playerInfo));
+  // JSON.stringify(array.push(playerInfo));
+
   document.getElementById('nameEntry').style = 'display: none';
   myMap.setView([43.78886, -72.7317], 7);
 
 }
+function addScore() {
+  console.log('in it')
+  let name = document.getElementById('input').value;
+  if (localStorage.getItem('highScores')) {
+    console.log(name);
 
-function addName() {
-  let list = document.getElementById('scoreCardList')
-  let listItem = document.createElement('li');
-  listItem.textContent = array[index].name + ":" + array[index].score;
-  list.appendChild(listItem);
-  
-    $('#start').prop('disabled', true);
-    $('#giveUp').prop('disabled', false);
-    $('#guessCounty').prop('disabled', false);
-    $('.leaflet-control-zoom-out').show();
+    let highScoreArray = JSON.parse(localStorage.getItem('highScores'))
+    console.log(name);
+    highScoreArray.push({'name': name, 'score': count})
+    console.log(name);
+    localStorage.setItem('highScores', JSON.stringify('highScoreArray'))
 
+    console.log(name);
+  } else {
+    console.log('321');
+    localStorage.setItem('highScores', '[{"name:" ' + name + ', "score:" ' + count + '}]')
+    console.log('321');
   }
-
-
+}
 
 
 myMap.dragging.disable();
-  myMap.doubleClickZoom.disable();
-  myMap.scrollWheelZoom.disable();
+myMap.doubleClickZoom.disable();
+myMap.scrollWheelZoom.disable();
 
 
 
-  function giveUp() {
-    document.getElementById('giveUpText').innerHTML = "Your coordinates were: " + point.lat + ", " + point.lon;
-    myMap.setView([43.78886, -72.7317], 7);
-  }
+function giveUp() {
+  document.getElementById('giveUpText').innerHTML = "Your coordinates were: " + point.lat + ", " + point.lon;
+  myMap.setView([43.78886, -72.7317], 7);
+}
 
-  // JQUERY STUFF
-  $(document).ready(function () {
-    $('#start').click(function () {
-      $(this).prop('disabled', true);
-      $('#giveUp').prop('disabled', false);
-      $('#guessCounty').prop('disabled', false);
-      $('.leaflet-control-zoom-out').show();
-    })
-    $('#giveUp').click(function () {
-      $(this).prop('disabled', true);
-      $('#guessCounty').prop('disabled', true);
-      $('#start').prop('disabled', false);
-    })
+// JQUERY STUFF
+$(document).ready(function () {
+  $('#start').click(function () {
+    $(this).prop('disabled', true);
+    $('#giveUp').prop('disabled', false);
+    $('#guessCounty').prop('disabled', false);
+    $('.leaflet-control-zoom-out').show();
+  })
+  $('#giveUp').click(function () {
+    $(this).prop('disabled', true);
+    $('#guessCounty').prop('disabled', true);
+    $('#start').prop('disabled', false);
+  })
 
-    $('.leaflet-control-zoom-out').click(function () {
-      count--;
-      $('#score4u').html("Your score is: " + count);
-      if (count === 1) {
-        $('.leaflet-control-zoom-out').hide();
-      }
-    })
-
-
+  $('.leaflet-control-zoom-out').click(function () {
+    count--;
+    $('#score4u').html("Your score is: " + count);
+    if (count === 1) {
+      $('.leaflet-control-zoom-out').hide();
+    }
+  })
 
 
 
 
-  });
+
+
+})
