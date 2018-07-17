@@ -35,19 +35,16 @@ function getRandomPoint() {
   }
 }
 
-let marker;
+
 
 let count = 4;
-let loops = 0;
 let point;
 
 function start() {
   count = 4;
   point = getRandomPoint();
 
-  console.log({ loops })
   console.log({ point })
-  loops += 1;
 
   while (leafletPip.pointInLayer([point.lon, point.lat], vermontBorder).length === 0) {
     point = getRandomPoint
@@ -55,7 +52,7 @@ function start() {
   myMap.setView([point.lat, point.lon], 14);
 
   document.getElementById("score4u").innerHTML = "Your score is 4. Every time you zoom out, it drops by one.";
-  marker = L.marker([point.lat, point.lon]).addTo(myMap);
+  L.marker([point.lat, point.lon]).addTo(myMap);
 }
 
 function guess() {
@@ -107,22 +104,15 @@ function submitInitials() {
 
 }
 function addScore() {
-  console.log('in it')
   let name = document.getElementById('input').value;
-  if (localStorage.getItem('highScores')) {
-    console.log(name);
-
+  if(localStorage.getItem('highScores')) {
+    console.log(typeof 'highScores')
     let highScoreArray = JSON.parse(localStorage.getItem('highScores'))
-    console.log(name);
-    highScoreArray.push({'name': name, 'score': count})
-    console.log(name);
-    localStorage.setItem('highScores', JSON.stringify('highScoreArray'))
-
-    console.log(name);
+    highScoreArray.push('{"name": '+name+ ', "score": '+count+'}')
+    localStorage.setItem('highScores', JSON.stringify(highScoreArray))
   } else {
     console.log('321');
-    localStorage.setItem('highScores', '[{"name:" ' + name + ', "score:" ' + count + '}]')
-    console.log('321');
+    localStorage.setItem('highScores', '{"name": ' + name + ', "score": ' + count + '}')
   }
 }
 
